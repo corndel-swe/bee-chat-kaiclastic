@@ -39,12 +39,17 @@ public class Main {
                 String content = messageNode.get("content").asText();
                 System.out.println(content + " " + recipientId);
                 if (recipientId.isEmpty()){
+                    // 121 NOTES
+                    // EACH USER HAS A connectContext -> INFORMATION ABOUT THE WEBSOCKET THAT IS CREATED
+                    // - KEEP A REFERENCE TO EACH WEBSOCKET -> A CONNECT TO EACH USER FE
+                    // - STORING EACH USERS CONTEXT & THEN SENDING A MESSAGE TO EACH OF THEM IF A GLOBAL MESSAGE
+                    // VIEW TH AJAVLIN DOCS ABOUT CONTEXT & METHODS THAT ARE ON THEM.  
+                    // - https://javalin.io/documentation#wscontext  
                     messageContext.send((Map.of("content", "Hello, World")));
                 } else {
                     User recipient = new User(messageContext);
                     recipient.receiveMessage(Map.of("content", content));
                     messageContext.send((Map.of("content", "Hello from the server")));
-
                 }
             });
 
